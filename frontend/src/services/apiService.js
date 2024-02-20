@@ -1,10 +1,26 @@
 const API_URL = 'http://localhost:8080';
 
 export function getCards(tags = '') {
-  // if tags is not empty, add it to the URL (?tags=tag1&tags=tag2)
   const url = tags
     ? `${API_URL}/cards?tags=${tags}`
     : `${API_URL}/cards`;
+    return fetch(url)
+      .then(response => response.json())
+      .then(cards => {
+        return cards.reduce((categories, card) => {
+          if (!categories[card.category]) {
+            categories[card.category] = [];
+          }
+          categories[card.category].push(card);
+          return categories;
+        }, {});
+      });
+}
+
+export function getCardsQuizz(date = '') {
+  const url = date
+    ? `${API_URL}/cards/quizz?date=${date}`
+    : `${API_URL}/cards/quizz`;
     return fetch(url)
       .then(response => response.json())
       .then(cards => {

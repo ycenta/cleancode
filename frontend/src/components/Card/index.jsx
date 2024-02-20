@@ -23,8 +23,8 @@ function Card({id, question, answer, tag }) {
   };
 
   const handleValidateClick = () => {
-    answerCard(id, isCorrect);
     setIsCorrect(true);
+    answerCard(id, true);
   };
 
   return (
