@@ -30,7 +30,7 @@ class CardsService {
     return this.cards.find(card => card.id === id);
   }
 
-  getAllCards(tags) {
+  getAllCards(tags=null) {
     if (tags) {
       if (Array.isArray(tags)) { 
         return this.cards.filter(card => tags.some(tag => card.tag === tag));
