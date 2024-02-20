@@ -4,6 +4,12 @@ const cardsService = new CardsService();
 class CardsController {
   createCard(req, res) {
     const { question, answer, tag } = req.body;
+
+    if (!question || !answer) {
+      res.status(400).send('Bad request');
+      return;
+    }
+
     const card = cardsService.createCard(question, answer, tag);
     res.status(201).json(card);
   }
