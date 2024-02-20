@@ -11,9 +11,7 @@ function Card({id, question, answer, tag }) {
   const handleClick = () => {
     if (!isFlipped) {
       setIsCorrect(userAnswer.toLowerCase() === answer.toLowerCase());
-      if(isCorrect === true){
-        answerCard(id, isCorrect);
-      }
+      answerCard(id, userAnswer.toLowerCase() === answer.toLowerCase());
     }
     setIsFlipped(!isFlipped);
   };
