@@ -12,13 +12,14 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    perspective: 1000px;
     color : black;
   }
   
   .card-question, .card-answer {
     position: absolute;
     backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
   }
   
   .card-question {

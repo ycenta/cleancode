@@ -1,19 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Category from '../../components/Category';
+import { getCards } from '../../services/apiService';
+import './Quizz.css';
 
 function Quiz() {
-  // Ici, je suppose que vous avez un tableau de cartes pour chaque catégorie.
-  // Vous devrez remplacer ces tableaux par les vrais tableaux de cartes.
-  const category1Cards = [{ id: 1, question: 'Question 1', answer: 'Answer 1' },{ id: 4, question: 'Question 1', answer: 'Answer 1'}]; 
-  const category2Cards = [{ id: 2, question: 'Question 2', answer: 'Answer 2' }, /* ... */];
-  const category3Cards = [{ id: 3, question: 'Question 3', answer: 'Answer 3' }, /* ... */];
+  const [cardsByCategory, setCardsByCategory] = useState({});
+  const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    getCards().then(data => setCardsByCategory(data));
+  }, []);
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+    getCards(event.target.value).then(data => setCardsByCategory(data));
+  };
 
   return (
+    <>       
+    <button className="button" onClick={() => window.location.href = '/'}>Back to Home</button>
+    <button className="button" onClick={() => window.location.href = '/create-card'}>Create Card</button>
+    <input type="text" placeholder="Search" value={searchTerm} onChange={handleSearch} />
     <div className="quiz">
-      <Category name="Category 1" cards={category1Cards} />
-      <Category name="Category 2" cards={category2Cards} />
-      <Category name="Category 3" cards={category3Cards} />
+    {Object.entries(cardsByCategory).map(([categoryName, cards]) => (
+        <Category key={categoryName} name={categoryName} cards={cards} />
+      ))}
     </div>
+    </>
+
   );
 }
 

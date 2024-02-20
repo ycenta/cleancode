@@ -7,7 +7,7 @@ function CardList({ cards }) {
   return (
     <div className="card-list">
       {cards.map((card) => (
-        <Card key={card.id} question={card.question} answer={card.answer} />
+        <Card key={card.id} id={card.id} question={card.question} answer={card.answer} tag={card.tag} />
       ))}
     </div>
   );
@@ -19,6 +19,7 @@ CardList.propTypes = {
       id: PropTypes.number.isRequired,
       question: PropTypes.string.isRequired,
       answer: PropTypes.string.isRequired,
+      tag: PropTypes.string.isRequired,
     })
   ).isRequired,
 };

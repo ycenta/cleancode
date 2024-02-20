@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { answerCard } from '../../services/apiService';
 import PropTypes from 'prop-types';
 import './Card.css';
 
-function Card({ question, answer }) {
+function Card({id, question, answer, tag }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [userAnswer, setUserAnswer] = useState('');
   const [isCorrect, setIsCorrect] = useState(null);
@@ -10,6 +11,9 @@ function Card({ question, answer }) {
   const handleClick = () => {
     if (!isFlipped) {
       setIsCorrect(userAnswer.toLowerCase() === answer.toLowerCase());
+      if(isCorrect === true){
+        answerCard(id, isCorrect);
+      }
     }
     setIsFlipped(!isFlipped);
   };
@@ -19,6 +23,7 @@ function Card({ question, answer }) {
   };
 
   const handleValidateClick = () => {
+    answerCard(id, isCorrect);
     setIsCorrect(true);
   };
 
@@ -28,6 +33,7 @@ function Card({ question, answer }) {
         {question}
         <input type="text" placeholder="Answer" value={userAnswer} onChange={handleInputChange} />
         <button className="show-answer" onClick={handleClick}>Show answer</button>
+        <p className="tags">tags : {tag}</p>
       </div>
       <div className={`card-answer ${isFlipped ? 'shown invert' : 'hidden'}`}>
         {answer}
@@ -39,6 +45,7 @@ function Card({ question, answer }) {
 }
 
 Card.propTypes = {
+  id: PropTypes.string.isRequired,
   question: PropTypes.string.isRequired,
   answer: PropTypes.string.isRequired,
 };
