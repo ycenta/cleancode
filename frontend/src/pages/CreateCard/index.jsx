@@ -29,6 +29,8 @@ function CreateCard() {
             } else {
                 setResponseMessage('An error occurred');
             }
+        }).catch(() => {
+            setResponseMessage('An error occurred');
         });
     };
 

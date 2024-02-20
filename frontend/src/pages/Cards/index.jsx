@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import Category from '../../components/Category';
-import { getCardsQuizz } from '../../services/apiService';
-import './Quizz.css';
+import { getCards } from '../../services/apiService';
+import './Cards.css';
 
-function Quiz() {
+function Cards() {
   const [cardsByCategory, setCardsByCategory] = useState({});
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    getCardsQuizz().then(data => setCardsByCategory(data));
+    getCards().then(data => setCardsByCategory(data));
   }, []);
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+    getCards(event.target.value).then(data => setCardsByCategory(data));
+  };
 
   return (
     <>       
     <button className="button" onClick={() => window.location.href = '/'}>Back to Home</button>
     <button className="button" onClick={() => window.location.href = '/create-card'}>Create Card</button>
+    <input type="text" placeholder="Search" value={searchTerm} onChange={handleSearch} />
     <div className="quiz">
     {Object.entries(cardsByCategory).map(([categoryName, cards]) => (
         <Category key={categoryName} name={categoryName} cards={cards} />
@@ -24,4 +31,4 @@ function Quiz() {
   );
 }
 
-export default Quiz;
+export default Cards;
