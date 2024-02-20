@@ -8,6 +8,11 @@ router.post('/', (req, res) => {
   cardsController.createCard(req, res);
 });
 
+// Route pour récuperer toutes les cartes pour un jour donnée
+router.get('/quizz', (req, res) => {
+  cardsController.getQuizz(req, res);
+});
+
 // Route pour obtenir une carte par son ID
 router.get('/:id', (req, res) => {
   cardsController.getCardById(req, res);
@@ -27,4 +32,10 @@ router.delete('/:id', (req, res) => {
 router.get('/', (req, res) => {
   cardsController.getAllCards(req, res);
 });
+
+// Route pour vérifier une réponse
+router.patch('/:id/answer', (req, res) => {
+  cardsController.checkAnswer(req, res);
+});
+
 module.exports = router;
