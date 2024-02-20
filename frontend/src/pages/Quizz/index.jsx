@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Category from '../../components/Category';
 import { getCardsQuizz } from '../../services/apiService';
 import './Quizz.css';
@@ -15,7 +15,7 @@ function Quiz() {
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    getCardsQuizz(date.toISOString().split('T')[0]).then(data => setCards(data));
+    getCardsQuizz(date.toISOString().split('T')[0]).then(data => setCardsByCategory(data));
   };
 
   return (

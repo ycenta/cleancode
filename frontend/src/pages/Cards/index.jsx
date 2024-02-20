@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Category from '../../components/Category';
 import { getCards } from '../../services/apiService';
 import './Cards.css';

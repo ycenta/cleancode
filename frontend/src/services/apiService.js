@@ -42,7 +42,6 @@ export function answerCard(cardId, isValid) {
       },
       body: JSON.stringify({ isValid }),
     })
-    .then(response => response.json());
   }
 
 export function createCard(question, answer, tag) {
