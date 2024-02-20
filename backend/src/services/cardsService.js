@@ -82,7 +82,8 @@ class CardsService {
       date = new Date(date);
     }
 
-    const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
+    const firstDayOfYear = new Date(date.getFullYear()+"-01-01");
+
     return allCards.filter(card => {
       const daysSinceFirstDayOfYear = this.getDateDiffInDays(firstDayOfYear, date);
       switch (card.category) {
@@ -110,6 +111,7 @@ class CardsService {
     const diffInMs = Math.abs(date2 - date1);
     return diffInMs / (1000 * 60 * 60 * 24);
   }
+  
 }
 
 
