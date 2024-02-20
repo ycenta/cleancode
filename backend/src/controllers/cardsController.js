@@ -3,8 +3,8 @@ const cardsService = new CardsService();
 
 class CardsController {
   createCard(req, res) {
-    const { question, answer, category, tags } = req.body;
-    const card = cardsService.createCard(question, answer, category, tags);
+    const { question, answer, tag } = req.body;
+    const card = cardsService.createCard(question, answer, tag);
     res.status(201).json(card);
   }
 
@@ -14,11 +14,17 @@ class CardsController {
     if (card) {
       res.json(card);
     } else {
-      res.status(404).send('Card not found');
+      res.status(404).description('Card not found');
     }
   }
 
   getAllCards(req, res) {
+    const tags = req.query.tags;
+    if (tags) {
+      const allCards = cardsService.getAllCards(tags);
+      res.json(allCards);
+      return;
+    }
     const allCards = cardsService.getAllCards();
     res.json(allCards);
   }
@@ -42,6 +48,33 @@ class CardsController {
     } else {
       res.status(404).send('Card not found');
     }
+  }
+
+  checkAnswer(req, res) {
+    const id = parseInt(req.params.id);
+    const { isValid } = req.body;
+
+    if (isValid === undefined) {
+      res.status(400).send('Bad request');
+      return;
+    }
+
+    const card = cardsService.getCardById(id);
+
+    if (!card) {
+      res.status(404).send('Card not found');
+      return;
+    }
+
+    cardsService.updateCategory(card, isValid);
+    res.status(204).send("Answer has been taken into account");
+  }
+
+  getQuizz(req, res) {
+    const date = req.query.date? req.query.date : null;
+
+    const quizz = cardsService.getQuizz(date);
+    res.json(quizz);
   }
 }
 
