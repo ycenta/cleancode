@@ -10,6 +10,12 @@ npm i
 npm run start
 ```
 
+Pour lancer les tests backend
+
+```cd backend
+npm run test
+```
+
 Retourner en arrière pour installer les dépendances du frontend 
 
 ```bash
